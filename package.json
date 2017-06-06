@@ -12,15 +12,15 @@
   "scripts": {
     "clean": "npm run clean:dist && rmdir node_modules /s",
     "clean:dist": "rmdir dist /s",
-    "lint": "eslint -c ./.eslintrc.json js/**",
+    "lint": "eslint -c ./.eslintrc.json Client/src/js/** && eslint -c ./.eslintrc.json Server/src/js/**" ,
     "debug": "npm run clean && npm install && mkdir dist && npm run static && npm run css && npm run js",
     "build": "npm run clean && npm install && mkdir dist && npm run static:min && npm run css:min && npm run js:min",
-    "static": "cp -r src/assets/. dist && cp src/index.html dist/index.html",
-    "static:min": "npm run static && place dist/index.html style.css style.min.css && place dist/index.html main.js main.min.js",
-    "css": "lessc src/styles/index.less dist/index.css",
-    "css:min": "lessc --clean-css src/styles/index.less dist/index.css",
-    "js": "browserify src/js/Main.js > dist/main.js",
-    "js:min": "npm run js && babili dist/main.js > dist/main.min.js"
+    "static": "cp -r src/styles/. dist && cp src/index.html dist/index.html",//TODO
+    "static:min": "npm run static && place dist/index.html style.css style.min.css && place dist/index.html main.js main.min.js",//TODO
+    "css": "lessc src/styles/index.less dist/index.css",//TODO
+    "css:min": "lessc --clean-css src/styles/index.less dist/index.css",//TODO
+    "js": "browserify src/js/Main.js > dist/main.js",//TODO
+    "js:min": "npm run js && babili dist/main.js > dist/main.min.js"//TODO
   },
   "description": "\"Hausarbeit für Web-Entwicklung\"",
   "version": "1.0.0",

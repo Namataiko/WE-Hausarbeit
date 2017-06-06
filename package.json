@@ -6,7 +6,8 @@
     "less": "latest",
     "browserify": "latest",
     "express": "latest",
-    "babili": "latest"
+    "babili": "latest",
+    "less-plugin-clean-css": "latest"
   },
   "scripts": {
     "clean": "npm run clean:dist && rmdir node_modules /s",

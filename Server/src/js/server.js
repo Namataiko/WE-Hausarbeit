@@ -5,6 +5,7 @@ const server = express();
  *argv[1] enthält enthält den Pfad zum .js File das ausgeführt wird
  *alle weiteren Elemente sind Kommandozeilenargumente*/
 let port = process.argv[2];
+//server.use("/dist", express.static(__dirname + "/dist"));
 server.use("/static", express.static("Client"));
 server.get("/", function (req, res) {
 	res.send("Hello World");

@@ -11,16 +11,17 @@
   },
   "scripts": {
     "clean": "npm run clean:dist && rmdir node_modules /s",
-    "clean:dist": "rmdir dist /s",
+    "clean:dist": "rmdir Client/dist /s",
     "lint": "eslint -c ./.eslintrc.json Client/src/js/** && eslint -c ./.eslintrc.json Server/src/js/**" ,
-    "debug": "npm run clean && npm install && mkdir dist && npm run static && npm run css && npm run js",
-    "build": "npm run clean && npm install && mkdir dist && npm run static:min && npm run css:min && npm run js:min",
-    "static": "cp -r src/styles/. dist && cp src/index.html dist/index.html",//TODO
-    "static:min": "npm run static && place dist/index.html style.css style.min.css && place dist/index.html main.js main.min.js",//TODO
-    "css": "lessc src/styles/index.less dist/index.css",//TODO
-    "css:min": "lessc --clean-css src/styles/index.less dist/index.css",//TODO
-    "js": "browserify src/js/Main.js > dist/main.js",//TODO
-    "js:min": "npm run js && babili dist/main.js > dist/main.min.js"//TODO
+    "debug": "npm run clean && npm install && mkdir Client/dist && npm run static && npm run css && npm run js",
+    "build": "npm run clean && npm install && mkdir Client/dist && npm run static:min && npm run css:min && npm run js:min",
+    "static": "xcopy /s Client/src/styles/. Client/dist && xcopy Client/src/index.html Client/dist/index.html",//CHECKUP
+    "static:min": "npm run static && place Client/dist/index.html style.css style.min.css && place Client/dist/index.html main.js main.min.js",//TODO
+    "css": "lessc Client/src/styles/index.less Client/dist/index.css",//CHECKUP
+    "css:min": "lessc --clean-css Client/src/styles/index.less dist/index.css",//CHECKUP
+    "js": "browserify Client/src/js/Main.js > Client/dist/main.js",//CHECKUP
+    "js:min": "npm run js && babili Client/dist/main.js > Client/dist/main.min.js",//CHECKUP
+    "start":"node Server/src/js/server.js 8080" //Server an Port 8080 starten
   },
   "description": "\"Hausarbeit für Web-Entwicklung\"",
   "version": "1.0.0",

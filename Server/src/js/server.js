@@ -8,7 +8,7 @@ let port = process.argv[2];
 //server.use(express.static(__dirname + "/dist"));
 server.use("/static", express.static("Client/dist"));
 server.get("/", function (req, res) {
-	res.send("Hello World");
+	res.send("Server gestartet");
 });
 
 var listener = server.listen(port, function () {

@@ -1,6 +1,6 @@
 var GoogleMapsLoader = require("google-maps");
 GoogleMapsLoader.KEY = "AIzaSyDphoZGe9mIqPoZ4e5aWG7RORkw-yH4JSA";
-GoogleMapsLoader.load(function (google) {
+GoogleMapsLoader.load(function (google) { 							//google-maps Karte laden
 	var map = new google.maps.Map(document.getElementById("map"),
 		{
 			zoom: 12,

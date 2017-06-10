@@ -9,13 +9,12 @@
     "babili": "latest",
     "less-plugin-clean-css": "latest",
     "place": "latest",
-    "google-maps":"latest"
-    
+    "google-maps": "latest"
   },
   "scripts": {
     "clean": "npm run clean:dist && rd node_modules /s /q",
     "clean:dist": "rd Client\\dist /s /q",
-    "lint": "eslint -c ./.eslintrc.json Client/src/js/** && eslint -c ./.eslintrc.json Server/src/js/**" ,
+    "lint": "eslint -c ./.eslintrc.json Client/src/js/** && eslint -c ./.eslintrc.json Server/src/js/**",
     "debug": "npm run clean:dist  && mkdir Client\\dist && npm run static && npm run css && npm run js",
     "build": "npm run clean && npm install && mkdir Client\\dist && npm run static:min && npm run css:min && npm run js:min",
     "static": "copy Client\\src\\styles\\. Client\\dist && copy Client\\index.html Client\\dist\\index.html",
@@ -24,7 +23,7 @@
     "css:min": "lessc --clean-css Client\\src\\styles\\index.less > Client\\dist\\index.min.css",
     "js": "browserify Client\\src\\js\\index.js > Client\\dist\\main.js",
     "js:min": "npm run js && babili Client\\dist\\main.js > Client\\dist\\main.min.js",
-    "start":"node Server/src/js/server.js 8080" 
+    "start": "node Server/src/js/server.js 8080"
   },
   "description": "\"Hausarbeit für Web-Entwicklung\"",
   "version": "1.0.0",

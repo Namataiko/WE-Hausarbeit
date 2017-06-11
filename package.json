@@ -12,8 +12,8 @@
     "google-maps": "latest"
   },
   "scripts": {
-    "clean": "npm run clean:dist && rd node_modules /s /q",
-    "clean:dist": "rd Client\\dist /s /q",
+    "clean": "npm run clean:dist && if exist \"node_modules\" rd /s /q \"node_modules\"",
+    "clean:dist": "if exist \"Client/dist\" rd /s /q \"Client/dist\"",
     "lint": "eslint -c ./.eslintrc.json Client/src/js/** && eslint -c ./.eslintrc.json Server/src/js/**",
     "debug": "npm run clean:dist  && mkdir Client\\dist && npm run static && npm run css && npm run js",
     "build": "npm run clean && npm install && mkdir Client\\dist && npm run static:min && npm run css:min && npm run js:min",

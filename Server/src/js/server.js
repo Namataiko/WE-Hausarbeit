@@ -16,6 +16,7 @@ var listener = server.listen(port, function () {
 
 function readLocationNames(response)
 {
+	console.log("Test");
 	var directoryName = "../../data/";
 	var locationNames = [];
 	var locationFile;
@@ -23,6 +24,7 @@ function readLocationNames(response)
 	{
 		if(err)
 			{
+				console.log("Error while reading data directory");
 				return;
 			}
 		files.forEach(function(f)

@@ -3,7 +3,8 @@
   "dependencies": {
     "path": "latest",
     "express": "latest",
-    "google-maps": "latest"
+    "google-maps": "latest",
+    "fs": "latest"
   },
   "devDependencies": {
     "eslint": "latest",

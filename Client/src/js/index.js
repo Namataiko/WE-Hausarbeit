@@ -7,3 +7,18 @@ GoogleMapsLoader.load(function (google) { 							//google-maps Karte laden
 			center: { lat: 49.75, lng: 6.63 }
 		});
 });
+
+
+function getTracks()
+{
+	var request = new XMLHttpRequest();
+	request.open("GET", "/tracks", true);
+	request.setRequestHeader("Content-Type","application/json");
+	request.onreadystatechange = function()
+	{
+		if(request.readyState === 4 && request.status ===200)
+		{
+			
+		}
+	}
+}

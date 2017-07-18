@@ -1,6 +1,6 @@
 var GoogleMapsLoader = require("google-maps");
-var JsonTracks;
 GoogleMapsLoader.KEY = "AIzaSyDphoZGe9mIqPoZ4e5aWG7RORkw-yH4JSA";
+
 GoogleMapsLoader.load(function (google) { 							//google-maps Karte laden
 	var map = new google.maps.Map(document.getElementById("map"),
 		{
@@ -9,6 +9,32 @@ GoogleMapsLoader.load(function (google) { 							//google-maps Karte laden
 		});
 });
 
+var trackNameList;
+var listItemHeight;
+var totalPages;
+var currentPage;
+var tracksPerPage;
+var totalTrackNames;
+var currentStartElementOnPage;
+var currentLastElementOnPage;
+
+
+window.onload = function()
+{
+	trackNameList = [];
+	totalTrackNames = 0;
+	listItemHeight = 30;
+	totalPages = 0;
+	currentPage = 0;
+	tracksPerPage = 0;
+	currentStartElementOnPage = 0;
+	currentLastElementOnPage = 0;
+
+	getTracks();
+	calculateListSize();
+	fillInTrackListNames();
+
+}
 
 function getTracks()
 {
@@ -19,16 +45,35 @@ function getTracks()
 	{
 		if(request.readyState === 4 && request.status ===200)
 		{
-				JsonTracks=JSON.parse(request.responseText);			
+				trackNameList=JSON.parse(request.responseText);			
 		}
 	};
 	request.send();
 };
 
+function calculateListSize()
+{
+	trackListHeight = window.outerHeight * 0.98;
+	totalTrackNames = trackNameList.length;
+	tracksPerPage = Math.floor(trackListHeight / listItemHeight);
+	currentStartElementOnPage = tracksPerPage * (currentPage - 1);
+	currentLastElementOnPage = tracksPerPage * currentPage - 1;
 
-function fillList()
-var  tracklist =document.getElementById("Trackliste");
-	for (var i=0;i<JsonTracks.length();i++)
-		var item= document.createElement(li)
-		item.appendChild(document.createTextNode(JsonTracks[i]))
-		tracklist.appendChild(item)
+	if(currentLastElementOnPage > totalTrackNames)
+		{
+			currentLastElementOnPage = totalTrackNames;
+		}
+
+	totalPages = Math.ceil(totalTrackNames / tracksPerPage);
+}
+
+function fillInTrackListNames()
+{
+	var  tracklist = document.getElementById("Trackliste");
+	for (var i = currentStartElementOnPage; i <= currentLastElementOnPage; i++)
+	{
+		var item = document.createElement(li);
+		item.appendChild(document.createTextNode(trackNameList[i]));
+		tracklist.appendChild(item);
+	}
+}

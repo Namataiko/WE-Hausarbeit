@@ -12,7 +12,8 @@
     "browserify": "latest",
     "babili": "latest",
     "less-plugin-clean-css": "latest",
-    "place": "latest"
+    "place": "latest",
+    "async": "latest"
   },
   "scripts": {
     "clean": "npm run clean:dist && if exist \"node_modules\" rd /s /q \"node_modules\"",

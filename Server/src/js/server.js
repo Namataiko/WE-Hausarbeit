@@ -17,23 +17,24 @@ var listener = server.listen(port, function () {
 function readLocationNames(response)
 {
 	console.log("Test");
-	var directoryName = "../../data/";
-	var locationNames = [];
-	var locationFile;
+	var directoryName = "./Server/data/";
+	var trackNames = [];
+	var trackFile;
 	fs.readdir(directoryName, function(err, files)
 	{
 		if(err)
 			{
 				console.log("Error while reading data directory");
+				console.log(err);
 				return;
 			}
 		files.forEach(function(f)
 		{
 			LocationFile = require(directoryName+f);
 			console.log(LocationFile);
-			locationNames.push(LocationFile.features[0].properties.name);
+			trackNames.push(LocationFile.features[0].properties.name);
 		})
 	})
 	
-	response.json(locationNames);
+	response.json(trackNames);
 }

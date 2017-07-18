@@ -1,6 +1,7 @@
 const express = require("express");
 const path = require("path");
 const fs = require("fs");
+const async = require("async");
 const server = express();
 
 let port = process.argv[2]; //Kommandozeilenargument für Port übernehmen
@@ -28,8 +29,9 @@ function readTrackNames(response)
 				console.error(err);
 				return;
 			}
-		files.forEach(function(f)
+		async.each(files,function(f, callback)
 		{
+			console.log("TestEach");
 			trackFilePath = path.join(directoryName, f);
 			fs.readFile(trackFilePath, function(err, data)
 			{
@@ -39,9 +41,17 @@ function readTrackNames(response)
 					}
 				var track = JSON.parse(data);
 				trackNames.push(track.features[0].properties.name);
+				callback(null);
 			})
+		},function(err)
+		{
+			console.log("EachDone!");
+			if(err)
+				{
+					console.error(err);
+				}
+			console.log(trackNames);
+			response.json(trackNames);
 		})
 	})
-	console.log(trackNames);
-	response.json(trackNames);
 }

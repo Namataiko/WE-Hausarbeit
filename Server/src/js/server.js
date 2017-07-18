@@ -17,7 +17,6 @@ var listener = server.listen(port, function () {
 
 function readTrackNames(response)
 {
-	console.log("Test");
 	var directoryName = "./Server/data/";
 	var trackNames = [];
 	var trackFilePath;
@@ -31,7 +30,6 @@ function readTrackNames(response)
 			}
 		async.each(files,function(f, callback)
 		{
-			console.log("TestEach");
 			trackFilePath = path.join(directoryName, f);
 			fs.readFile(trackFilePath, function(err, data)
 			{
@@ -45,7 +43,6 @@ function readTrackNames(response)
 			})
 		},function(err)
 		{
-			console.log("EachDone!");
 			if(err)
 				{
 					console.error(err);

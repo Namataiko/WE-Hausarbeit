@@ -62,7 +62,7 @@ function getTracks()
 
 function calculateListSize()
 {
-	trackListHeight = window.outerHeight * 0.98;
+	trackListHeight = window.outerHeight;
 	totalTrackNames = trackNameList.length;
 	tracksPerPage = Math.floor(trackListHeight / listItemHeight);
 	currentStartElementOnPage = tracksPerPage * (currentPage - 1);
@@ -80,7 +80,7 @@ function calculateListSize()
 
 function fillInTrackListNames()
 {
-	var  tracklist = document.getElementById("Trackliste");
+	var  tracklist = document.getElementById("tracklist");
 	while(tracklist.firstChild)
 		{
 			tracklist.removeChild(tracklist.firstChild);
@@ -88,7 +88,33 @@ function fillInTrackListNames()
 	for (var i = currentStartElementOnPage; i <= currentLastElementOnPage; i++)
 	{
 		var item = document.createElement("li");
+		item.className="item"
 		item.appendChild(document.createTextNode(trackNameList[i]));
 		tracklist.appendChild(item);
 	}
+}
+
+
+function drawHeightMeter(array){
+	var canvas=getElementById("heightMeterCanvas");
+	var ctx=canvas.getContext("2d");
+	var mini=0;
+	var maxi=0;
+	for (var i=0;i<array.length();i++){
+		maxi=Math.max(array[i][2])
+		mini=Math.min(array[i][2])
+	}
+	var maxDifferent=maxi +Math.abs(mini);
+	var hightfactor=canvas.height/maxDifferent
+	var stroke=canvas.width/array.length;
+	var start=canvas.height;
+	for (var i=0;i<array.length;i+=stroke){
+		ctx.moveTo(i,start);
+		ctx.lineTo(i,array[i][2]*hightfactor);
+		ctx.stroke();
+	}
+
+
+
+
 }

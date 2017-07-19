@@ -113,31 +113,71 @@ function fillInTrackListNames()
 		var item = document.createElement("li");
 		item.className="item"
 		item.appendChild(document.createTextNode(trackNameList[i]));
+		item.addEventListener("click", getTrackRoute, false);
 		tracklist.appendChild(item);
 	}
 }
 
 
+//mehr Pseudo klappt also noch nicht 
 function drawHeightMeter(array){
 	var canvas=getElementById("heightMeterCanvas");
 	var ctx=canvas.getContext("2d");
 	var mini=0;
 	var maxi=0;
-	for (var i=0;i<array.length();i++){
-		maxi=Math.max(array[i][2])
-		mini=Math.min(array[i][2])
-	}
-	var maxDifferent=maxi +Math.abs(mini);
-	var hightfactor=canvas.height/maxDifferent
 	var stroke=canvas.width/array.length;
 	var start=canvas.height;
-	for (var i=0;i<array.length;i+=stroke){
-		ctx.moveTo(i,start);
-		ctx.lineTo(i,array[i][2]*hightfactor);
-		ctx.stroke();
+	for (var i=0;i<array.length();i++){
+		maxi=Math.max(array[i][2],maxi);
+		mini=Math.min(array[i][2],mini);
 	}
-
-
-
-
+	var maxDifferent=maxi-mini;
+	var factor=canvas.height/maxDifferent;
+	if(mini>=0){
+		for (var i=0;i<array.length;i+=stroke){
+			ctx.moveTo(i,start);
+			ctx.lineTo(i,array[i][2]*factor);
+			ctx.stroke();
+		}
+	}
+	else{
+		for (var i=0 ;i<array.length;i+=stroke){
+			ctx.moveTo(i,start);
+			ctx.lineTo(i,(array[i][2]-mini)*factor);
+			ctx.stroke();
+		}
+	}
 }
+
+function getTrackRoute()
+{
+	console.log("Fetching TrackRoute");
+	var trackID;
+	var clickedTrack = this;
+	var pageElements = clickedTrack.parentNode.childNodes;
+	for(var i = 0; i < pageElements.length; i++)
+	{
+		if(this == pageElements.item(i))
+		{
+			trackID = i + currentStartElementOnPage;
+		}
+	}
+	console.log("TrackID: "+ trackID);
+	var trackRouteRequest = new XMLHttpRequest();
+	trackRouteRequest.open("POST", "/data?id=" + trackID, true);
+
+	trackRouteRequest.onreadystatechange = function()
+	{
+		if(trackRouteRequest.readyState === 4 && trackRouteRequest.status === 200)
+		{
+			console.log("Test");
+			trackRouteData = JSON.parse(trackRouteRequest.responseText);
+			console.log(trackRouteData);
+			drawHeightMeter(trackRouteData);
+		}
+	}
+	console.log("Sending Request");
+	trackRouteRequest.send();
+}
+
+

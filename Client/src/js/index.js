@@ -72,7 +72,7 @@ function fillInTrackListNames()
 	var  tracklist = document.getElementById("Trackliste");
 	for (var i = currentStartElementOnPage; i <= currentLastElementOnPage; i++)
 	{
-		var item = document.createElement(li);
+		var item = document.createElement("li");
 		item.appendChild(document.createTextNode(trackNameList[i]));
 		tracklist.appendChild(item);
 	}

@@ -47,7 +47,6 @@ function readTrackNames(response)
 				{
 					console.error(err);
 				}
-			console.log(trackNames);
 			response.json(trackNames);
 		})
 	})

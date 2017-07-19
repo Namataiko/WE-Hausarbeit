@@ -25,16 +25,16 @@ window.onload = function()
 	totalTrackNames = 0;
 	listItemHeight = 30;
 	totalPages = 0;
-	currentPage = 0;
+	currentPage = 1;
 	tracksPerPage = 0;
 	currentStartElementOnPage = 0;
 	currentLastElementOnPage = 0;
 
 	getTracks();
-	calculateListSize();
-	fillInTrackListNames();
 
 }
+
+window.onresize = calculateListSize;
 
 function getTracks()
 {
@@ -45,7 +45,16 @@ function getTracks()
 	{
 		if(request.readyState === 4 && request.status ===200)
 		{
-				trackNameList=JSON.parse(request.responseText);			
+				trackNameList=JSON.parse(request.responseText);
+				trackNameList.sort(function(a,b)
+			{
+				a = a.toLowerCase();
+				b = b.toLowerCase();
+				if(a > b) return 1;
+				if(a < b) return -1;
+				return 0;
+			})	
+				calculateListSize();
 		}
 	};
 	request.send();
@@ -65,11 +74,17 @@ function calculateListSize()
 		}
 
 	totalPages = Math.ceil(totalTrackNames / tracksPerPage);
+
+	fillInTrackListNames();
 }
 
 function fillInTrackListNames()
 {
 	var  tracklist = document.getElementById("Trackliste");
+	while(tracklist.firstChild)
+		{
+			tracklist.removeChild(tracklist.firstChild);
+		}
 	for (var i = currentStartElementOnPage; i <= currentLastElementOnPage; i++)
 	{
 		var item = document.createElement("li");

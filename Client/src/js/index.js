@@ -24,7 +24,7 @@ window.onload = function()
 	trackNameList = [];
 	totalTrackNames = 0;
 	listItemHeight = 30;
-	totalPages = 0;
+	totalPages = 1;
 	currentPage = 1;
 	tracksPerPage = 0;
 	currentStartElementOnPage = 0;
@@ -35,6 +35,24 @@ window.onload = function()
 }
 
 window.onresize = calculateListSize;
+
+document.getElementById("leftButton").onclick = function()
+{
+	if(currentPage > 1)
+		{
+			currentPage--;
+			calculateListSize();
+		}
+};
+
+document.getElementById("rightButton").onclick = function()
+{
+	if(currentPage < totalPages)
+		{
+			currentPage++;
+			calculateListSize(); 
+		}
+}
 
 function getTracks()
 {
@@ -62,9 +80,14 @@ function getTracks()
 
 function calculateListSize()
 {
-	trackListHeight = window.outerHeight * 0.98;
+	trackListHeight = window.outerHeight;
 	totalTrackNames = trackNameList.length;
 	tracksPerPage = Math.floor(trackListHeight / listItemHeight);
+	totalPages = Math.ceil(totalTrackNames / tracksPerPage);
+	if(currentPage > totalPages)
+		{
+			currentPage = totalPages;
+		}
 	currentStartElementOnPage = tracksPerPage * (currentPage - 1);
 	currentLastElementOnPage = tracksPerPage * currentPage - 1;
 
@@ -73,14 +96,13 @@ function calculateListSize()
 			currentLastElementOnPage = totalTrackNames;
 		}
 
-	totalPages = Math.ceil(totalTrackNames / tracksPerPage);
-
+	document.getElementById("pageNumber").innerHTML = currentPage + "/" + totalPages;
 	fillInTrackListNames();
 }
 
 function fillInTrackListNames()
 {
-	var  tracklist = document.getElementById("Trackliste");
+	var  tracklist = document.getElementById("tracklist");
 	while(tracklist.firstChild)
 		{
 			tracklist.removeChild(tracklist.firstChild);

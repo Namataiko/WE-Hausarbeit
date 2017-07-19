@@ -10,6 +10,7 @@ GoogleMapsLoader.load(function (google) { 							//google-maps Karte laden
 });
 
 var trackNameList;
+var trackRouteData;
 var listItemHeight;
 var totalPages;
 var currentPage;
@@ -112,5 +113,30 @@ function fillInTrackListNames()
 		var item = document.createElement("li");
 		item.appendChild(document.createTextNode(trackNameList[i]));
 		tracklist.appendChild(item);
+	}
+}
+
+function getTrackRoute()
+{
+	var trackID;
+	var clickedTrack = this;
+	var pageElements = clickedTrack.parentNode.childNodes;
+	for(var i = 0; i < pageElements.length; i++)
+	{
+		if(this == pageElements.item(i))
+		{
+			trackID = i + currentStartElementOnPage;
+		}
+	}
+	var trackRouteRequest = new XMLHttpRequest();
+	trackRouteRequest.open("POST", "/data?id=" + trackID, true);
+
+	trackRouteRequest.onreadystatechange = function()
+	{
+		if(trackRouteRequest.readyState === 4 && trackRouteRequest === 200)
+		{
+			trackRouteData = JSON.parse(trackRouteRequest.responseText);
+			//TODO
+		}
 	}
 }

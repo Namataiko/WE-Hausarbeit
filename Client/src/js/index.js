@@ -112,12 +112,14 @@ function fillInTrackListNames()
 	{
 		var item = document.createElement("li");
 		item.appendChild(document.createTextNode(trackNameList[i]));
+		item.addEventListener("click", getTrackRoute, false);
 		tracklist.appendChild(item);
 	}
 }
 
 function getTrackRoute()
 {
+	console.log("Fetching TrackRoute");
 	var trackID;
 	var clickedTrack = this;
 	var pageElements = clickedTrack.parentNode.childNodes;
@@ -128,15 +130,20 @@ function getTrackRoute()
 			trackID = i + currentStartElementOnPage;
 		}
 	}
+	console.log("TrackID: "+ trackID);
 	var trackRouteRequest = new XMLHttpRequest();
 	trackRouteRequest.open("POST", "/data?id=" + trackID, true);
 
 	trackRouteRequest.onreadystatechange = function()
 	{
-		if(trackRouteRequest.readyState === 4 && trackRouteRequest === 200)
+		if(trackRouteRequest.readyState === 4 && trackRouteRequest.status === 200)
 		{
+			console.log("Test");
 			trackRouteData = JSON.parse(trackRouteRequest.responseText);
+			console.log(trackRouteData);
 			//TODO
 		}
 	}
+	console.log("Sending Request");
+	trackRouteRequest.send();
 }

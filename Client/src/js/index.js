@@ -131,7 +131,7 @@ function drawHeightMeter(array){
 	}
 	var differenz=maxi-mini;
 	if(mini>=0){
-		factor=canvas.height/maxi;
+		factor=(canvas.height-10)/maxi;
 		ctx.beginPath();
 		ctx.moveTo(0,canvas.height);
 		for (var i=0,j=0;j<array.features[0].geometry.coordinates.length;i+=xrange,j++){

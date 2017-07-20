@@ -81,7 +81,7 @@ function getTracks()
 
 function calculateListSize()
 {
-	trackListHeight = window.outerHeight;
+	trackListHeight = window.outerHeight * 0.98;
 	totalTrackNames = trackNameList.length;
 	tracksPerPage = Math.floor(trackListHeight / listItemHeight);
 	totalPages = Math.ceil(totalTrackNames / tracksPerPage);
@@ -94,7 +94,7 @@ function calculateListSize()
 
 	if(currentLastElementOnPage > totalTrackNames)
 		{
-			currentLastElementOnPage = totalTrackNames;
+			currentLastElementOnPage = totalTrackNames - 1;
 		}
 
 	document.getElementById("pageNumber").innerHTML = currentPage + "/" + totalPages;
@@ -118,10 +118,9 @@ function fillInTrackListNames()
 	}
 }
 
-
 //mehr Pseudo klappt also noch nicht 
 function drawHeightMeter(array){
-	var canvas=getElementById("heightMeterCanvas");
+	var canvas=document.getElementById("heightMeterCanvas");
 	var ctx=canvas.getContext("2d");
 	var mini=0;
 	var maxi=0;
@@ -151,7 +150,6 @@ function drawHeightMeter(array){
 
 function getTrackRoute()
 {
-	console.log("Fetching TrackRoute");
 	var trackID;
 	var clickedTrack = this;
 	var pageElements = clickedTrack.parentNode.childNodes;
@@ -162,7 +160,6 @@ function getTrackRoute()
 			trackID = i + currentStartElementOnPage;
 		}
 	}
-	console.log("TrackID: "+ trackID);
 	var trackRouteRequest = new XMLHttpRequest();
 	trackRouteRequest.open("POST", "/data?id=" + trackID, true);
 
@@ -170,14 +167,57 @@ function getTrackRoute()
 	{
 		if(trackRouteRequest.readyState === 4 && trackRouteRequest.status === 200)
 		{
-			console.log("Test");
 			trackRouteData = JSON.parse(trackRouteRequest.responseText);
-			console.log(trackRouteData);
-			drawHeightMeter(trackRouteData);
+			//drawHeightMeter(trackRouteData);
+			drawRoute(trackRouteData);
 		}
 	}
 	console.log("Sending Request");
 	trackRouteRequest.send();
 }
 
+function createPath(trackRouteData)
+ {
+	var path = [];
+	var latitude;
+	var longitude;
+	var latlngObject;
 
+	 for(var i = 0; i < trackRouteData.features[0].geometry.coordinates.length; i++)
+		{
+			latitude = trackRouteData.features[0].geometry.coordinates[i][1];
+			longitude = trackRouteData.features[0].geometry.coordinates[i][0];
+			latlngObject = new google.maps.LatLng(latitude, longitude);
+			path.push(latlngObject);
+		}
+
+	return path;
+ }
+
+function drawRoute(trackRouteData)
+{	
+	var path = createPath(trackRouteData);
+	var bounds = new google.maps.LatLngBounds();
+	var map = new google.maps.Map(document.getElementById("map"),
+	{
+		zoom: 12
+	});
+
+	route = new google.maps.Polyline(
+	{
+		path : path,
+		geodesic: true,
+		strokeColor: "#FF0000",
+		strokeOpacity: 1.0,
+		strokeWeight: 2,
+		map: map
+	}
+	);
+	
+	for(var i = 0; i < path.length; i++)
+	{
+		bounds.extend(path[i]);
+	}
+
+	map.fitBounds(bounds);
+}

@@ -117,39 +117,86 @@ function fillInTrackListNames()
 		tracklist.appendChild(item);
 	}
 }
-
-//mehr Pseudo klappt also noch nicht 
+ 
 function drawHeightMeter(array){
 	var canvas=document.getElementById("heightMeterCanvas");
 	var ctx=canvas.getContext("2d");
-	var mini=0;
-	var maxi=0;
-	var stroke=canvas.width/array.length;
-	var start=canvas.height;
-	for (var i=0;i<array.length();i++){
-		maxi=Math.max(array[i][2],maxi);
-		mini=Math.min(array[i][2],mini);
+	var xrange=canvas.width/(array.features[0].geometry.coordinates.length);
+	var mini=9000;
+	var maxi=-12000;
+	var factor;
+	for (var i=0;i<array.features[0].geometry.coordinates.length;i++){
+		maxi=Math.max(array.features[0].geometry.coordinates[i][2],maxi);
+		mini=Math.min(array.features[0].geometry.coordinates[i][2],mini);
 	}
-	var maxDifferent=maxi-mini;
-	var factor=canvas.height/maxDifferent;
+	var differenz=maxi-mini;
 	if(mini>=0){
-		for (var i=0;i<array.length;i+=stroke){
-			ctx.moveTo(i,start);
-			ctx.lineTo(i,array[i][2]*factor);
-			ctx.stroke();
+		factor=canvas.height/maxi;
+		ctx.beginPath();
+		ctx.moveTo(0,canvas.height);
+		for (var i=0,j=0;j<array.features[0].geometry.coordinates.length;i+=xrange,j++){
+			ctx.lineTo(i,canvas.height-(array.features[0].geometry.coordinates[j][2])*factor);
 		}
+	}
+	ctx.lineTo(canvas.width,canvas.height);
+	ctx.lineTo(0,canvas.height);
+	ctx.fillStyle="white";
+	ctx.closePath();
+	ctx.globalAlpha=1;
+	ctx.strokeStyle="white";
+	ctx.fill();
+
+
+	/*
+	//ctx.clearRect(0,0,canvas.width,canvas.height);
+	ctx.fillStyle = "black";
+	//ctx.globalAlpha = 0.5;
+	ctx.fillRect(0,0,canvas.width,canvas.height);
+	console.log("Rect filled");
+	
+	
+	var maxDifferent=maxi-mini;
+	var factor;
+	if(mini>=0){
+		ctx.beginPath();
+		ctx.moveTo(0,canvas.height);
+		factor=canvas.height-10/maxi;
+		for (var i=0,j=0;j<array.features[0].geometry.coordinates.length;i+=stroke,j++){
+			ctx.lineTo(i,canvas.height-array.features[0].geometry.coordinates[j][2]*factor);
+			
+		}
+		console.log("mini>=0");
+	ctx.lineTo(canvas.width,canvas.height);
+	ctx.lineTo(0,canvas.height);
+	ctx.fillStyle="black";
+	ctx.closePath();
+	ctx.fill();
+	console.log("Done");
+
 	}
 	else{
-		for (var i=0 ;i<array.length;i+=stroke){
-			ctx.moveTo(i,start);
-			ctx.lineTo(i,(array[i][2]-mini)*factor);
-			ctx.stroke();
+		console.log("mini <0");
+		ctx.beginPath();
+		ctx.moveTo(0,canvas.height);
+		factor=canvas.height-10/maxDifferent;
+		for (var i=0,j=0 ;j<array.features[0].geometry.coordinates.length;i+=stroke,j++){
+			ctx.lineTo(i,(canvas.height-array.features[0].geometry.coordinates[j][2]-mini)*factor);
+			
 		}
+	ctx.lineTo(canvas.width,canvas.height);
+	ctx.lineTo(0,canvas.height);
+	ctx.fillStyle="black";
+	ctx.closePath();
+	ctx.fill();
+	console.log("done");
 	}
+	
+*/
 }
 
 function getTrackRoute()
 {
+	
 	var trackID;
 	var clickedTrack = this;
 	var pageElements = clickedTrack.parentNode.childNodes;
@@ -168,11 +215,10 @@ function getTrackRoute()
 		if(trackRouteRequest.readyState === 4 && trackRouteRequest.status === 200)
 		{
 			trackRouteData = JSON.parse(trackRouteRequest.responseText);
-			//drawHeightMeter(trackRouteData);
+			drawHeightMeter(trackRouteData);
 			drawRoute(trackRouteData);
 		}
 	}
-	console.log("Sending Request");
 	trackRouteRequest.send();
 }
 

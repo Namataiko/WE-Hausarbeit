@@ -24,7 +24,7 @@ window.onload = function()
 {
 	trackNameList = [];
 	totalTrackNames = 0;
-	listItemHeight = 30;
+	listItemHeight = 43;
 	totalPages = 1;
 	currentPage = 1;
 	tracksPerPage = 0;

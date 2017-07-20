@@ -135,7 +135,7 @@ function drawHeightMeter(array){
 		ctx.beginPath();
 		ctx.moveTo(0,canvas.height);
 		for (var i=0,j=0;j<array.features[0].geometry.coordinates.length;i+=xrange,j++){
-			ctx.lineTo(i,canvas.height-(array.features[0].geometry.coordinates[j][2])*factor);
+			ctx.lineTo(i,canvas.height-(array.features[0].geometry.coordinates[j][2]-mini)*factor);
 		}
 	}
 	ctx.lineTo(canvas.width,canvas.height);

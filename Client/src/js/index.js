@@ -132,7 +132,6 @@ function drawHeightMeter(array){
 	}
 	
 	ctx.clearRect(0,0,canvas.width,canvas.height);
-	ctx.globalAlpha=1.0;
 	var differenz=maxi-mini;
 	factor=canvas.height/differenz;
 	ctx.beginPath();

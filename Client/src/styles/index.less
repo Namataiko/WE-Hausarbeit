@@ -1,14 +1,23 @@
-      
+      @height:100%;
+      .buttonModel{
+        border:none;
+        background:None;
+        font-family: Arial, Helvetica, sans-serif;
+        font-weight: bold;
+        font-size: 1.2em;
+
+
+      }      
       html, body{
-        height: 100%;
+        height:@height;
         margin: 0;
         padding: 0;
       }
       #map {
         position:absolute;
-        height: 100%;
+        height: @height;
         float: left;
-        width: 69%;
+        width: 70%;
 
       }
       #tracklistContainer {
@@ -18,31 +27,23 @@
         display: -webkit-flex;
         display: flex;
         flex-direction:column;
-        text-align: left;
-<<<<<<< HEAD
-        
-=======
+        text-align:left;
         background-color:white;
->>>>>>> b2c6109d9bfd762a26e9b4d0ca8c14cdb6d95ef1
         
       }
 
       li:nth-of-type(even){
-        background:grey;
+        background:lightgray;
           
       }
       li{
-<<<<<<< HEAD
-        display: -webkit-flex;
-        display: flex;
-        -webkit-align-items:center;
-        align-items: center;
-=======
-        padding: 10px 0;
->>>>>>> b2c6109d9bfd762a26e9b4d0ca8c14cdb6d95ef1
+        padding: 10px;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
+        font-family:Arial, Helvetica, sans-serif;
+        font-size: 1.2em;
+
       }
 
       #tracklist{
@@ -50,37 +51,29 @@
       }
 
       #heightMeterCanvas{
-          width:300px;
-          height:100px;
+          width:375px;
+          height:150px;
           z-index:1;
           border:1px solid black;
           position:fixed;
           left:3em;
           bottom:2em;
           background-color:black ;
-          opacity:0.5;
+          opacity:0.7;
+          padding:1em;
 
       }
 
       #leftButton{
-        border:none;
-        background:None;
-        font-family: Arial, Helvetica, sans-serif;
-        font-weight: bold;
+          .buttonModel
       }
       #rightButton{
-      
-        border:none;
-        background:None;
-        font-family: Arial, Helvetica, sans-serif;
-        font-weight: bold;
+          .buttonModel
+       
       }
       #pageNumber{
-        
-        border:none;
-        background:None;
-        font-family: Arial, Helvetica, sans-serif;
-        font-weight: bold;
+       .buttonModel
+       
         
       }
       #buttoncontainer{
@@ -89,8 +82,20 @@
         -webkit-align-items:center;
         align-items: center;
         background-color:darkturquoise;
-        height: 2em
+        height: 2em;
       }
+
+      li:hover{
+        background-color:lightblue; 
+      }
+
+      li:active :hover{
+        background-color:blue;
+      }
+
+      
+
+
 
 
     

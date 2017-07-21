@@ -112,6 +112,7 @@ function fillInTrackListNames()
 	{
 		var item = document.createElement("li");
 		item.className="item"
+		
 		item.appendChild(document.createTextNode(trackNameList[i]));
 		item.addEventListener("click", getTrackRoute, false);
 		tracklist.appendChild(item);
@@ -129,69 +130,24 @@ function drawHeightMeter(array){
 		maxi=Math.max(array.features[0].geometry.coordinates[i][2],maxi);
 		mini=Math.min(array.features[0].geometry.coordinates[i][2],mini);
 	}
+	
+	ctx.clearRect(0,0,canvas.width,canvas.height);
+	ctx.globalAlpha=1.0;
 	var differenz=maxi-mini;
-	if(mini>=0){
-		factor=(canvas.height-10)/maxi;
-		ctx.beginPath();
-		ctx.moveTo(0,canvas.height);
-		for (var i=0,j=0;j<array.features[0].geometry.coordinates.length;i+=xrange,j++){
-			ctx.lineTo(i,canvas.height-(array.features[0].geometry.coordinates[j][2]-mini)*factor);
-		}
+	factor=canvas.height/differenz;
+	ctx.beginPath();
+	ctx.moveTo(0,canvas.height);
+	for (var i=0,j=0;j<array.features[0].geometry.coordinates.length;i+=xrange,j++){
+		ctx.lineTo(i,canvas.height-(array.features[0].geometry.coordinates[j][2])*factor+mini*factor);
+		
 	}
+		
 	ctx.lineTo(canvas.width,canvas.height);
 	ctx.lineTo(0,canvas.height);
 	ctx.fillStyle="white";
 	ctx.closePath();
-	ctx.globalAlpha=1;
-	ctx.strokeStyle="white";
 	ctx.fill();
 
-
-	/*
-	//ctx.clearRect(0,0,canvas.width,canvas.height);
-	ctx.fillStyle = "black";
-	//ctx.globalAlpha = 0.5;
-	ctx.fillRect(0,0,canvas.width,canvas.height);
-	console.log("Rect filled");
-	
-	
-	var maxDifferent=maxi-mini;
-	var factor;
-	if(mini>=0){
-		ctx.beginPath();
-		ctx.moveTo(0,canvas.height);
-		factor=canvas.height-10/maxi;
-		for (var i=0,j=0;j<array.features[0].geometry.coordinates.length;i+=stroke,j++){
-			ctx.lineTo(i,canvas.height-array.features[0].geometry.coordinates[j][2]*factor);
-			
-		}
-		console.log("mini>=0");
-	ctx.lineTo(canvas.width,canvas.height);
-	ctx.lineTo(0,canvas.height);
-	ctx.fillStyle="black";
-	ctx.closePath();
-	ctx.fill();
-	console.log("Done");
-
-	}
-	else{
-		console.log("mini <0");
-		ctx.beginPath();
-		ctx.moveTo(0,canvas.height);
-		factor=canvas.height-10/maxDifferent;
-		for (var i=0,j=0 ;j<array.features[0].geometry.coordinates.length;i+=stroke,j++){
-			ctx.lineTo(i,(canvas.height-array.features[0].geometry.coordinates[j][2]-mini)*factor);
-			
-		}
-	ctx.lineTo(canvas.width,canvas.height);
-	ctx.lineTo(0,canvas.height);
-	ctx.fillStyle="black";
-	ctx.closePath();
-	ctx.fill();
-	console.log("done");
-	}
-	
-*/
 }
 
 function getTrackRoute()

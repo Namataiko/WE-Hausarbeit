@@ -24,7 +24,7 @@ window.onload = function()
 {
 	trackNameList = [];
 	totalTrackNames = 0;
-	listItemHeight = 43;
+	listItemHeight = 35;
 	totalPages = 1;
 	currentPage = 1;
 	tracksPerPage = 0;
@@ -110,8 +110,8 @@ function fillInTrackListNames()
 		}
 	for (var i = currentStartElementOnPage; i <= currentLastElementOnPage; i++)
 	{
-		var item = document.createElement("li");
-		item.className="item"
+		var item = document.createElement("p");
+		item.className="item";
 		
 		item.appendChild(document.createTextNode(trackNameList[i]));
 		item.addEventListener("click", getTrackRoute, false);

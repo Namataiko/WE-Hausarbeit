@@ -24,7 +24,7 @@ window.onload = function()
 {
 	trackNameList = [];
 	totalTrackNames = 0;
-	listItemHeight = 35;
+	listItemHeight = 32;
 	totalPages = 1;
 	currentPage = 1;
 	tracksPerPage = 0;
@@ -81,7 +81,7 @@ function getTracks()
 
 function calculateListSize()
 {
-	trackListHeight = window.outerHeight * 0.98;
+	trackListHeight = window.innerHeight - document.getElementById("buttoncontainer").clientHeight;
 	totalTrackNames = trackNameList.length;
 	tracksPerPage = Math.floor(trackListHeight / listItemHeight);
 	totalPages = Math.ceil(totalTrackNames / tracksPerPage);

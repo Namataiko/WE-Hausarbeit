@@ -28,7 +28,6 @@ googleMapsLoader.load(function (google) {
 window.onload = function () {
 	trackNameList = [];
 	totalTrackNames = 0;
-	listItemHeight = 32;
 	totalPages = 1;
 	currentPage = 1;
 	tracksPerPage = 0;
@@ -72,10 +71,22 @@ function getTracks() {
 				if (a < b) { return -1; }
 				return 0;
 			});
+			calculateItemSize();
 			calculateListSize();
 		}
 	};
 	request.send();
+}
+
+/* Höhe des p-Tags ermitteln und für weitere Berechnungen festlegen */
+function calculateItemSize() {
+	var tracklist = document.getElementById("tracklist");
+	var item = document.createElement("p");
+	item.className = "item";
+	item.appendChild(document.createTextNode("undefined"));
+	item.addEventListener("click", getTrackRoute);
+	tracklist.appendChild(item);
+	listItemHeight = document.getElementsByClassName("item")[0].clientHeight + 1;
 }
 
 /* Größe der Liste anhand der Fenstergröße berechnen
@@ -111,6 +122,7 @@ function fillInTrackListNames() {
 		item.appendChild(document.createTextNode(trackNameList[i]));
 		item.addEventListener("click", getTrackRoute);
 		tracklist.appendChild(item);
+		console.log(document.getElementsByClassName("item")[0].clientHeight);
 	}
 }
 

@@ -4,22 +4,29 @@ const fs = require("fs");
 const async = require("async");
 const server = express();
 
-let port = process.argv[2]; //Kommandozeilenargument für Port übernehmen
+/* Kommandozeilenargument für Port übernehmen */
+let port = process.argv[2];
+
+/* Statische Daten in Client/dist bereitstellen */
 server.use("/", express.static("Client/dist"));//Statische Dateien in Client/dist bereitstellen
 
+/* Route unter /tracks */
 server.get("/tracks", function (request, response) {
 	readTrackNames(response);
 });
 
+/* Route unter /data */
 server.post("/data", function (request, response) {
 	var id = request.query.id;
 	id++;
 	getTrackRoute(id, response);
 });
-var listener = server.listen(port, function () {
-	console.log("Listening on port " + listener.address().port);
-});
 
+/* Server starten */
+server.listen(port);
+
+/* Inhalt des data-Ordners lesen und die Namen der Tracks aus den jeweiligen Dateien
+   in ein Array schreiben welches zum Response hinzugefügt wird. */
 function readTrackNames(response) {
 	var directoryName = "./Server/data/";
 	var trackNames = [];
@@ -48,6 +55,8 @@ function readTrackNames(response) {
 	});
 }
 
+/* Geodaten anhand der ID in data finden und den gesamten Inhalt der jeweiligen json-Datei
+   in den Response setzen */
 function getTrackRoute(id, response) {
 	console.log("Getting TrackRoute");
 	var directoryName = "./Server/data/";

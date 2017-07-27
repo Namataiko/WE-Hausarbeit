@@ -86,7 +86,7 @@ function calculateItemSize() {
 	item.appendChild(document.createTextNode("undefined"));
 	item.addEventListener("click", getTrackRoute);
 	tracklist.appendChild(item);
-	listItemHeight = document.getElementsByClassName("item")[0].clientHeight + 1;
+	listItemHeight = document.getElementsByClassName("item")[0].clientHeight;
 }
 
 /* Größe der Liste anhand der Fenstergröße berechnen
@@ -94,6 +94,7 @@ function calculateItemSize() {
 function calculateListSize() {
 	var trackListHeight = window.innerHeight - document.getElementById("buttoncontainer").clientHeight;
 	totalTrackNames = trackNameList.length;
+	console.log(totalTrackNames);
 	tracksPerPage = Math.floor(trackListHeight / listItemHeight);
 	totalPages = Math.ceil(totalTrackNames / tracksPerPage);
 	if (currentPage > totalPages) {
@@ -102,7 +103,7 @@ function calculateListSize() {
 	currentStartElementOnPage = tracksPerPage * (currentPage - 1);
 	currentLastElementOnPage = (tracksPerPage * currentPage) - 1;
 
-	if (currentLastElementOnPage > totalTrackNames) {
+	if (currentLastElementOnPage >= totalTrackNames) {
 		currentLastElementOnPage = totalTrackNames - 1;
 	}
 

@@ -21,10 +21,12 @@
       }
 
       #tracklistContainer {
+        
         width: 30%;
         float: right;
         background-color:darkturquoise;
         min-height: @height;
+        
       }
 
       p:nth-of-type(even){
@@ -37,6 +39,7 @@
       }
 
       .item{
+        flex:0.1; 
         margin: 0;
         padding-bottom: 0.25em;
         padding-top:0.25em;
@@ -44,7 +47,7 @@
         overflow: hidden;
         text-overflow: ellipsis;
         font-family:Arial, Helvetica, sans-serif;
-        font-size: 1.2em;
+        font-size: 1.5em;
         }
 
       #heightMeterCanvas{
@@ -70,17 +73,17 @@
       }
       #pageNumber{
        .buttonContainerElementModel;
-       
-       
-        
+      }
+
+      #tracklist{
+        display: flex;
+        flex-direction: column;
       }
       #buttoncontainer{
-        display: -webkit-flex;
         display: flex; 
-        -webkit-flex
         align-items: center;
-        height: 1.5em;
-        min-height: 1.5em;
+        height: 3.0em;
+        min-height: 3.0em;
 
       }
 

@@ -58,7 +58,6 @@ function readTrackNames(response) {
 /* Geodaten anhand der ID in data finden und den gesamten Inhalt der jeweiligen json-Datei
    in den Response setzen */
 function getTrackRoute(id, response) {
-	console.log("Getting TrackRoute");
 	var directoryName = "./Server/data/";
 	var trackFilePath;
 	fs.readdir(directoryName, function (err, files) {

@@ -19,7 +19,7 @@
     "clean": "npm run clean:dist && if exist \"node_modules\" rd /s /q \"node_modules\"",
     "clean:dist": "if exist \"Client/dist\" rd /s /q \"Client/dist\"",
     "lint": "eslint -c ./.eslintrc.json Client/src/js/** && eslint -c ./.eslintrc.json Server/src/js/**",
-    "debug": "npm run clean:dist  && mkdir Client\\dist && npm run static && npm run css && npm run js",
+    "debug": "npm run clean:dist && npm run lint && mkdir Client\\dist && npm run static && npm run css && npm run js",
     "build": "npm run clean && npm install && mkdir Client\\dist && npm run static:min && npm run css:min && npm run js:min",
     "static": "copy Client\\src\\styles\\. Client\\dist && copy Client\\index.html Client\\dist\\index.html",
     "static:min": "npm run static && place Client\\dist\\index.html index.css index.min.css && place Client\\dist\\index.html main.js main.min.js",

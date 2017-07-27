@@ -12,7 +12,7 @@ var currentStartElementOnPage;
 var currentLastElementOnPage;
 
 googleMapsLoader.load(function (google) { 							//google-maps Karte laden map evtl groß
-	google.maps.Map(document.getElementById("map"),
+	google.maps.map(document.getElementById("map"),
 		{
 			zoom: 12,
 			center: { lat: 49.75, lng: 6.63 }

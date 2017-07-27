@@ -4,7 +4,8 @@
     "path": "latest",
     "express": "latest",
     "google-maps": "latest",
-    "fs": "latest"
+    "fs": "latest",
+    "async": "latest"
   },
   "devDependencies": {
     "eslint": "latest",
@@ -12,15 +13,14 @@
     "browserify": "latest",
     "babili": "latest",
     "less-plugin-clean-css": "latest",
-    "place": "latest",
-    "async": "latest"
+    "place": "latest"
   },
   "scripts": {
     "clean": "npm run clean:dist && if exist \"node_modules\" rd /s /q \"node_modules\"",
     "clean:dist": "if exist \"Client/dist\" rd /s /q \"Client/dist\"",
     "lint": "eslint -c ./.eslintrc.json Client/src/js/** && eslint -c ./.eslintrc.json Server/src/js/**",
-    "debug": "npm run clean:dist && npm run lint && mkdir Client\\dist && npm run static && npm run css && npm run js",
-    "build": "npm run clean && npm install && mkdir Client\\dist && npm run static:min && npm run css:min && npm run js:min",
+    "debug": "npm run clean:dist && npm install && npm run lint && mkdir Client\\dist && npm run static && npm run css && npm run js",
+    "build": "npm run clean && npm install && npm run lint && mkdir Client\\dist && npm run static:min && npm run css:min && npm run js:min",
     "static": "copy Client\\src\\styles\\. Client\\dist && copy Client\\index.html Client\\dist\\index.html",
     "static:min": "npm run static && place Client\\dist\\index.html index.css index.min.css && place Client\\dist\\index.html main.js main.min.js",
     "css": "lessc Client\\src\\styles\\index.less > Client\\dist\\index.css",

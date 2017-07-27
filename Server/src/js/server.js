@@ -8,7 +8,7 @@ const server = express();
 let port = process.argv[2];
 
 /* Statische Daten in Client/dist bereitstellen */
-server.use("/", express.static("Client/dist"));//Statische Dateien in Client/dist bereitstellen
+server.use("/", express.static("Client/dist"));
 
 /* Route unter /tracks */
 server.get("/tracks", function (request, response) {

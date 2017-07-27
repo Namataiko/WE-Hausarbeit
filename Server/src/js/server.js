@@ -63,7 +63,6 @@ function getTrackRoute(id, response) {
 	var trackFilePath;
 	fs.readdir(directoryName, function (err, files) {
 		if (err) {
-			console.log("Error while reading data directory");
 			console.error(err);
 			return;
 		}
@@ -76,7 +75,6 @@ function getTrackRoute(id, response) {
 						return;
 					}
 					var track = JSON.parse(fileContent);
-					console.log(track);
 					response.json(track);
 				});
 			}

@@ -86,7 +86,7 @@ function calculateItemSize() {
 	item.appendChild(document.createTextNode("undefined"));
 	item.addEventListener("click", getTrackRoute);
 	tracklist.appendChild(item);
-	listItemHeight = document.getElementsByClassName("item")[0].clientHeight + 1;
+	listItemHeight = document.getElementsByClassName("item")[0].clientHeight + 0.7;
 }
 
 /* Größe der Liste anhand der Fenstergröße berechnen

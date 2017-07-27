@@ -8,7 +8,7 @@ const server = express();
 let port = process.argv[2];
 
 /* Statische Daten in Client/dist bereitstellen */
-server.use("/", express.static("Client/dist"));//Statische Dateien in Client/dist bereitstellen
+server.use("/", express.static("Client/dist"));
 
 /* Route unter /tracks */
 server.get("/tracks", function (request, response) {
@@ -58,7 +58,6 @@ function readTrackNames(response) {
 /* Geodaten anhand der ID in data finden und den gesamten Inhalt der jeweiligen json-Datei
    in den Response setzen */
 function getTrackRoute(id, response) {
-	console.log("Getting TrackRoute");
 	var directoryName = "./Server/data/";
 	var trackFilePath;
 	fs.readdir(directoryName, function (err, files) {

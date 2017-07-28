@@ -86,13 +86,8 @@ function calculateItemSize() {
 	item.appendChild(document.createTextNode("undefined"));
 	item.addEventListener("click", getTrackRoute);
 	tracklist.appendChild(item);
-<<<<<<< HEAD
 	listItemHeight = document.getElementsByClassName("item")[0].clientHeight;
-=======
-	listItemHeight = document.getElementsByClassName("item")[0].clientHeight + 0.7;
->>>>>>> b8cf2143e006f60b89f680f6fa1f490a45792102
 }
-
 /* Größe der Liste anhand der Fenstergröße berechnen
    Index des ersten Elements sowie des letzten Elements auf der Seite berechnen */
 function calculateListSize() {
@@ -110,8 +105,12 @@ function calculateListSize() {
 	if (currentLastElementOnPage >= totalTrackNames) {
 		currentLastElementOnPage = totalTrackNames - 1;
 	}
-
-	document.getElementById("pageNumber").innerHTML = currentPage + "/" + totalPages;
+	if (window.innerHeight > document.getElementById("buttoncontainer").clientHeight + listItemHeight) {
+		document.getElementById("pageNumber").innerHTML = currentPage + "/" + totalPages;
+	}
+	else {
+		document.getElementById("pageNumber").innerHTML = 0 + "/" + 0;
+	}
 	fillInTrackListNames();
 }
 
